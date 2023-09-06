@@ -23,7 +23,6 @@ export const advertsSlice = createSlice({
     isLoading: false,
     error: null,
   },
-  filter: '',
   extraReducers: builder => {
     builder
       .addCase(fetchAdverts.pending, pendingReducer)
