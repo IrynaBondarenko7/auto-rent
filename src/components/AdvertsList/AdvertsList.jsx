@@ -1,23 +1,15 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { AiOutlineHeart } from 'react-icons/ai';
 
-import { selectAdverts, selectFavorites } from 'redux/adverts/selectors';
-import { fetchAdverts } from 'redux/adverts/operations';
-import { StyledItem, StyledList } from './AdvertsList.styled';
-import { Modal } from 'components/Modal/Modal';
-import {
-  addToFavorites,
-  removeFromFavorites,
-} from 'redux/adverts/favoritesSlise';
+import { selectAdverts } from 'redux/adverts/selectors';
+import { fetchAdverts, loadMoreAdverts } from 'redux/adverts/operations';
+import { StyledList } from './AdvertsList.styled';
+import { AdvertsItem } from './AdvertsItem';
 
 export const AdvertsList = () => {
-  const [isShowModal, setIsShowModal] = useState(false);
-  const [selectedAdvert, setSelectedAdvert] = useState(null);
   const [page, setPage] = useState(1);
 
   const adverts = useSelector(selectAdverts);
-  const favorites = useSelector(selectFavorites);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,38 +19,16 @@ export const AdvertsList = () => {
       page,
       signal: controller.signal,
     };
-
-    dispatch(fetchAdverts(params));
+    if (page === 1) {
+      dispatch(fetchAdverts(params));
+    } else {
+      dispatch(loadMoreAdverts(params));
+    }
 
     return () => {
       controller.abort();
     };
   }, [dispatch, page]);
-
-  console.log(adverts);
-
-  const toggleModal = () => {
-    setIsShowModal(!isShowModal);
-  };
-
-  const closeModal = () => {
-    toggleModal();
-    setSelectedAdvert(null);
-  };
-  const onLearnMoreBtnClick = advert => {
-    toggleModal();
-    setSelectedAdvert(advert);
-  };
-
-  const toggleFavoritesHandler = advertId => {
-    const isFavorite = favorites.includes(advertId);
-
-    if (isFavorite) {
-      dispatch(removeFromFavorites(advertId));
-    } else {
-      dispatch(addToFavorites(advertId));
-    }
-  };
 
   const loadMoreBtnClick = () => {
     setPage(page + 1);
@@ -68,41 +38,7 @@ export const AdvertsList = () => {
     <>
       <StyledList>
         {adverts.map(advert => {
-          return (
-            <StyledItem key={advert.id}>
-              {isShowModal && selectedAdvert && (
-                <Modal onClose={closeModal}>
-                  <div>Modal {selectedAdvert.make}</div>
-                </Modal>
-              )}
-              <button
-                type="button"
-                onClick={() => toggleFavoritesHandler(advert.id)}
-              >
-                <AiOutlineHeart width={10} height={10} stroke="#212121" />
-              </button>
-
-              <img
-                src={advert.img || advert.photoLink}
-                alt={advert.make}
-                width="300"
-              />
-
-              <h3>{advert.make}</h3>
-              <h3>{advert.model}</h3>
-              <p>{advert.year}</p>
-              <p>{advert.rentalPrice}</p>
-              <p>{advert.address}</p>
-              <p>{advert.rentalCompany}</p>
-              <p>Premium {advert.type}</p>
-              <p>{advert.model}</p>
-              <p>{advert.id}</p>
-              <p>{advert.functionalities}</p>
-              <button type="button" onClick={() => onLearnMoreBtnClick(advert)}>
-                Learn more
-              </button>
-            </StyledItem>
-          );
+          return <AdvertsItem key={advert.id} advert={advert} />;
         })}
       </StyledList>
       <button type="button" onClick={loadMoreBtnClick}>

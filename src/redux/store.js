@@ -26,10 +26,15 @@ const favoritePersistConfig = {
   storage,
 };
 
+const advertsPersistConfig = {
+  key: 'adverts',
+  storage,
+};
+
 export const store = configureStore({
   reducer: {
     favorites: persistReducer(favoritePersistConfig, favoritesSlice.reducer),
-    adverts: advertsReducer,
+    adverts: persistReducer(advertsPersistConfig, advertsReducer),
   },
   middleware,
   devTools: process.env.NODE_ENV === 'development',
