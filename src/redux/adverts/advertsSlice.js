@@ -28,16 +28,6 @@ export const advertsSlice = createSlice({
     cars: [],
     isLoading: false,
     error: null,
-    checkedFavorite: {},
-  },
-  reducers: {
-    setCheckedFavorite: (state, action) => {
-      const { advertId, isChecked } = action.payload;
-      state.checkedFavorite = {
-        ...state.checkedFavorite,
-        [advertId]: isChecked,
-      };
-    },
   },
   extraReducers: builder => {
     builder
@@ -50,5 +40,4 @@ export const advertsSlice = createSlice({
   },
 });
 
-export const { setCheckedFavorite } = advertsSlice.actions;
 export const advertsReducer = advertsSlice.reducer;

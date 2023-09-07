@@ -5,10 +5,10 @@ import { StyledFavoriteButton, StyledItem } from './AdvertsList.styled';
 import {
   addToFavorites,
   removeFromFavorites,
+  setCheckedFavorite,
 } from 'redux/adverts/favoritesSlise';
 import { Modal } from 'components/Modal/Modal';
 import { Svg } from './Svg';
-import { advertsSlice } from 'redux/adverts/advertsSlice';
 
 export const AdvertsItem = ({ advert }) => {
   const [isShowModal, setIsShowModal] = useState(false);
@@ -17,7 +17,7 @@ export const AdvertsItem = ({ advert }) => {
   const favorites = useSelector(selectFavorites);
 
   const checkedFavorite = useSelector(
-    state => state.adverts.checkedFavorite[advert.id] || false
+    state => state.favorites.checkedFavorite[advert.id] || false
   );
   const dispatch = useDispatch();
 
@@ -41,10 +41,8 @@ export const AdvertsItem = ({ advert }) => {
       dispatch(removeFromFavorites(advertId));
     } else {
       dispatch(addToFavorites(advertId));
-      dispatch(
-        advertsSlice.actions.setCheckedFavorite({ advertId, isChecked })
-      );
     }
+    dispatch(setCheckedFavorite({ advertId, isChecked }));
   };
 
   return (

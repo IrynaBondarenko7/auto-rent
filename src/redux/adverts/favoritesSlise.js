@@ -4,6 +4,7 @@ export const favoritesSlice = createSlice({
   name: 'favorites',
   initialState: {
     list: [],
+    checkedFavorite: {},
   },
   reducers: {
     addToFavorites: (state, action) => {
@@ -16,9 +17,17 @@ export const favoritesSlice = createSlice({
       const advertId = action.payload;
       state.list = state.list.filter(id => id !== advertId);
     },
+    setCheckedFavorite: (state, action) => {
+      const { advertId, isChecked } = action.payload;
+      state.checkedFavorite = {
+        ...state.checkedFavorite,
+        [advertId]: isChecked,
+      };
+    },
   },
 });
 
-export const { addToFavorites, removeFromFavorites } = favoritesSlice.actions;
+export const { addToFavorites, removeFromFavorites, setCheckedFavorite } =
+  favoritesSlice.actions;
 
 export default favoritesSlice.reducer;
