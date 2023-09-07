@@ -9,7 +9,7 @@ export const StyledModalBackDrop = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(18, 20, 23, 0.5);
+  background-color: rgba(18, 20, 23, 0.1);
   pointer-events: auto;
   transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out;
 `;

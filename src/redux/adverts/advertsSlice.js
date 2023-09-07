@@ -13,7 +13,8 @@ const rejectedReducer = (state, action) => {
 const fetchAdvertsFulfilledReducer = (state, action) => {
   state.isLoading = false;
   state.error = null;
-  state.cars = action.payload;
+  // state.cars = action.payload;
+  state.cars = state.cars.concat(action.payload);
 };
 
 export const advertsSlice = createSlice({

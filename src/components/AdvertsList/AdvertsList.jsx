@@ -14,14 +14,28 @@ import {
 export const AdvertsList = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [selectedAdvert, setSelectedAdvert] = useState(null);
+  const [page, setPage] = useState(1);
 
   const adverts = useSelector(selectAdverts);
   const favorites = useSelector(selectFavorites);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAdverts());
-  }, [dispatch]);
+    const controller = new AbortController();
+
+    const params = {
+      page,
+      signal: controller.signal,
+    };
+
+    dispatch(fetchAdverts(params));
+
+    return () => {
+      controller.abort();
+    };
+  }, [dispatch, page]);
+
+  console.log(adverts);
 
   const toggleModal = () => {
     setIsShowModal(!isShowModal);
@@ -44,6 +58,10 @@ export const AdvertsList = () => {
     } else {
       dispatch(addToFavorites(advertId));
     }
+  };
+
+  const loadMoreBtnClick = () => {
+    setPage(page + 1);
   };
 
   return (
@@ -87,6 +105,9 @@ export const AdvertsList = () => {
           );
         })}
       </StyledList>
+      <button type="button" onClick={loadMoreBtnClick}>
+        Load more
+      </button>
     </>
   );
 };
