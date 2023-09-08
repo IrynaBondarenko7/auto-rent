@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { selectAdverts } from 'redux/adverts/selectors';
 import { fetchAdverts, loadMoreAdverts } from 'redux/adverts/operations';
-import { StyledList } from './AdvertsList.styled';
+import { StyledBtnLink, StyledList } from './AdvertsList.styled';
 import { AdvertsItem } from './AdvertsItem';
 
 export const AdvertsList = () => {
@@ -41,9 +41,9 @@ export const AdvertsList = () => {
           return <AdvertsItem key={advert.id} advert={advert} />;
         })}
       </StyledList>
-      <button type="button" onClick={loadMoreBtnClick}>
+      <StyledBtnLink type="button" onClick={loadMoreBtnClick}>
         Load more
-      </button>
+      </StyledBtnLink>
     </>
   );
 };

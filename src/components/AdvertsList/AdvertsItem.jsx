@@ -1,7 +1,17 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectFavorites } from 'redux/adverts/selectors';
-import { StyledFavoriteButton, StyledItem } from './AdvertsList.styled';
+import {
+  StyledDetailsDescription,
+  StyledFavoriteButton,
+  StyledHeaderCardTextWrap,
+  StyledImg,
+  StyledItem,
+  StyledMakeDescription,
+  StyledModelDescription,
+  StyledSvgWrapper,
+  StyledTextWrap,
+} from './AdvertsList.styled';
 import {
   addToFavorites,
   removeFromFavorites,
@@ -9,6 +19,9 @@ import {
 } from 'redux/adverts/favoritesSlise';
 import { Modal } from 'components/Modal/Modal';
 import { Svg } from './Svg';
+import { accessoriesMap } from './constants';
+import { StyledBtn } from 'components/Buttons/Buttons.styled';
+import { ModalContent } from './ModalContent';
 
 export const AdvertsItem = ({ advert }) => {
   const [isShowModal, setIsShowModal] = useState(false);
@@ -45,41 +58,57 @@ export const AdvertsItem = ({ advert }) => {
     dispatch(setCheckedFavorite({ advertId, isChecked }));
   };
 
+  const adress = advert.address.split(',');
+
+  let accessories = '';
+
+  for (const keyword in accessoriesMap) {
+    if (accessoriesMap[keyword].test(advert.accessories)) {
+      accessories = keyword.charAt(0).toUpperCase() + keyword.slice(1);
+      break;
+    }
+  }
+
   return (
     <>
       <StyledItem key={advert.id}>
         {isShowModal && selectedAdvert && (
           <Modal onClose={closeModal}>
-            <div>Modal {selectedAdvert.make}</div>
+            <ModalContent advert={advert} onClose={closeModal} />
           </Modal>
         )}
-        <StyledFavoriteButton
-          type="button"
-          onClick={() => toggleFavoritesHandler(advert.id)}
-          checked={checkedFavorite}
-        >
-          <Svg />
-        </StyledFavoriteButton>
 
-        <img
-          src={advert.img || advert.photoLink}
-          alt={advert.make}
-          width="300"
-        />
+        <StyledSvgWrapper>
+          <StyledFavoriteButton
+            type="button"
+            onClick={() => toggleFavoritesHandler(advert.id)}
+            checked={checkedFavorite}
+          >
+            <Svg />
+          </StyledFavoriteButton>
+          <StyledImg
+            src={advert.img || advert.photoLink}
+            alt={advert.make}
+            width="270"
+          />
+        </StyledSvgWrapper>
+        <StyledHeaderCardTextWrap>
+          <StyledTextWrap>
+            <StyledMakeDescription>{advert.make}</StyledMakeDescription>
+            <StyledModelDescription>{advert.model},</StyledModelDescription>
+            <StyledMakeDescription>{advert.year}</StyledMakeDescription>
+          </StyledTextWrap>
+          <StyledMakeDescription>{advert.rentalPrice}</StyledMakeDescription>
+        </StyledHeaderCardTextWrap>
 
-        <h3>{advert.make}</h3>
-        <h3>{advert.model}</h3>
-        <p>{advert.year}</p>
-        <p>{advert.rentalPrice}</p>
-        <p>{advert.address}</p>
-        <p>{advert.rentalCompany}</p>
-        <p>Premium {advert.type}</p>
-        <p>{advert.model}</p>
-        <p>{advert.id}</p>
-        <p>{advert.functionalities}</p>
-        <button type="button" onClick={() => onLearnMoreBtnClick(advert)}>
+        <StyledDetailsDescription>
+          {adress[1]} | {adress[2]} | {advert.rentalCompany} | Premium{' '}
+          {advert.type} | {advert.model} | {advert.id} | {accessories}
+        </StyledDetailsDescription>
+
+        <StyledBtn type="button" onClick={() => onLearnMoreBtnClick(advert)}>
           Learn more
-        </button>
+        </StyledBtn>
       </StyledItem>
     </>
   );
