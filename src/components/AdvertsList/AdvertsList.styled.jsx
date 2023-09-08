@@ -177,4 +177,10 @@ export const StyledTelLink = styled.a`
   background: #3470ff;
   color: #fff;
   margin-top: 24px;
+  transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover,
+  &:focus {
+    background-color: #0b44cd;
+    transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 `;

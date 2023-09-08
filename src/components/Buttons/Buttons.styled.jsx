@@ -25,3 +25,9 @@ export const StyledBtn = styled.button`
     transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 `;
+
+export const StyledSearchBtn = styled(StyledBtn)`
+  width: 136px;
+  margin: 0;
+  margin-top: 22px;
+`;

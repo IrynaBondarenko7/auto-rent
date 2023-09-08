@@ -43,3 +43,10 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+.css-13cymwt-control {
+  border-radius: 14px;
+  background-color: #f7f7fb !important;
+  height: 48px !important;
+  border: none !important;
+}
