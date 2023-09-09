@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# Car Rental Listings Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple web application for browsing and listing car rental
+advertisements. The application consists of three main pages: Home, Catalog, and
+Favorites, allowing users to explore car rental options and manage their
+favorite listings.
 
-## Available Scripts
+# Features
 
-In the project directory, you can run:
+Catalog Page: Users can browse a list of car rental advertisements. The catalog
+page provides filtering options for users to narrow down their search based on:
 
-### `npm start`
+Car make Hourly rental price Mileage (distance traveled by the car) Favorites
+Page: Users can mark car rental listings as favorites and view them later in the
+Favorites page.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Pagination: The application supports pagination, with 8 advertisements displayed
+per page. Users can load more listings by clicking the "Load More" button.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# How to Use
 
-### `npm test`
+Home Page: Upon opening the application, you will land on the Home page, where
+you can get an overview of the application's features.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Catalog Page: Click on the "Catalog" link in the navigation menu to access the
+catalog page. Here, you can use the filters on the left-hand side to refine your
+search. Listings will be displayed, and you can click on each one to learn more.
 
-### `npm run build`
+Favorites Page: Click on the "Favorites" link in the navigation menu to access
+your saved favorite listings. You can add and remove listings from here.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Pagination: On both the Catalog and Favorites pages, you will find a "Load More"
+button at the bottom. Click this button to load more listings as you explore.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Technologies Used
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+React.js: Front-end development ;
 
-### `npm run eject`
+Redux: State management ;
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+React-Router:Routing within the application ;
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Styled components: Styling ;
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+React-loader-spinner: Used for the loading spinner ;
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+React-select: Used for filters select;
 
-## Learn More
+Redux-persist: local storage;
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Getting Started
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To run this application locally, follow these steps:
 
-### Code Splitting
+1. Clone this repository to your local machine:
+   https://github.com/IrynaBondarenko7/auto-rent.git
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. Change to the project directory: cd car-rental-listings-app
 
-### Analyzing the Bundle Size
+3. Install dependencies: npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+4. Start the development server: npm start
 
-### Making a Progressive Web App
+5. Open your web browser and visit http://localhost:3000 to access the
+   application.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Enjoy exploring car rental listings with our web application! If you have any
+questions or suggestions, please feel free to open an issue
