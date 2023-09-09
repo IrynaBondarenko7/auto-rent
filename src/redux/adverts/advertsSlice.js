@@ -38,8 +38,8 @@ export const advertsSlice = createSlice({
       .addCase(loadMoreAdverts.pending, pendingReducer)
       .addCase(loadMoreAdverts.fulfilled, loadMoreAdvertsFulfilledReducer)
       .addCase(loadMoreAdverts.rejected, rejectedReducer)
-      .addCase(FiltrAdverts.pending, fetchAdvertsFulfilledReducer)
-      .addCase(FiltrAdverts.fulfilled, pendingReducer)
+      .addCase(FiltrAdverts.pending, pendingReducer)
+      .addCase(FiltrAdverts.fulfilled, fetchAdvertsFulfilledReducer)
       .addCase(FiltrAdverts.rejected, rejectedReducer);
   },
 });
