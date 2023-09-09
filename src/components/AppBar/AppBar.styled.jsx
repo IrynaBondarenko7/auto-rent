@@ -9,6 +9,7 @@ export const StyledHeader = styled.header`
 export const StyledNav = styled.nav`
   display: flex;
   gap: 35%;
+  
 `;
 
 export const StyledNavLink = styled(NavLink)`
@@ -20,6 +21,12 @@ export const StyledNavLink = styled(NavLink)`
   padding: 5px 15px;
   color: #2980b9;
   border-radius: 8px;
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover,
+  &:focus {
+    transform: scale(1.1);
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
 `;
 
 export const StyledLinkWrap = styled.div`

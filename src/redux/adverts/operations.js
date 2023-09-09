@@ -24,3 +24,35 @@ export const loadMoreAdverts = createAsyncThunk(
   'adverts/loadMoreAdverts',
   loadAdverts
 );
+
+const FetchFiltrAdverts = async (params, thunkAPI) => {
+  const { page, make, rentalPrice, minMileage, maxMileage } = params;
+  const queryParams = [];
+
+  if (make) {
+    queryParams.push(`make=${make}`);
+  }
+
+  if (rentalPrice) {
+    queryParams.push(`rentalPrice=${rentalPrice}`);
+  }
+
+  if (minMileage || maxMileage) {
+    queryParams.push(`mileage=${minMileage || maxMileage}`);
+  }
+
+  try {
+    const queryString = queryParams.join('&');
+    const response = await axios.get(
+      `/adverts?&page=${page}&limit=8&${queryString}`
+    );
+    return response.data;
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.message);
+  }
+};
+
+export const FiltrAdverts = createAsyncThunk(
+  'adverts/filtrAdverts',
+  FetchFiltrAdverts
+);

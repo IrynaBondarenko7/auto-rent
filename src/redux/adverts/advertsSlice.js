@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchAdverts, loadMoreAdverts } from './operations';
+import { FiltrAdverts, fetchAdverts, loadMoreAdverts } from './operations';
 
 const pendingReducer = state => {
   state.isLoading = true;
@@ -28,6 +28,7 @@ export const advertsSlice = createSlice({
     cars: [],
     isLoading: false,
     error: null,
+    filtr: '',
   },
   extraReducers: builder => {
     builder
@@ -36,7 +37,10 @@ export const advertsSlice = createSlice({
       .addCase(fetchAdverts.rejected, rejectedReducer)
       .addCase(loadMoreAdverts.pending, pendingReducer)
       .addCase(loadMoreAdverts.fulfilled, loadMoreAdvertsFulfilledReducer)
-      .addCase(loadMoreAdverts.rejected, rejectedReducer);
+      .addCase(loadMoreAdverts.rejected, rejectedReducer)
+      .addCase(FiltrAdverts.pending, fetchAdvertsFulfilledReducer)
+      .addCase(FiltrAdverts.fulfilled, pendingReducer)
+      .addCase(FiltrAdverts.rejected, rejectedReducer);
   },
 });
 

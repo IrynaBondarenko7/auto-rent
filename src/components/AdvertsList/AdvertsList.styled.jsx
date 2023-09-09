@@ -184,3 +184,14 @@ export const StyledTelLink = styled.a`
     transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
 `;
+
+export const StyledErrorText = styled.div`
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  text-align: center;
+  color: red;
+`;

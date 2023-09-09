@@ -13,7 +13,7 @@ import {
 } from './Filter.styled';
 import { StyledSearchBtn } from 'components/Buttons/Buttons.styled';
 
-export const Filter = () => {
+export const Filter = ({ onSearchClick }) => {
   const adverts = useSelector(selectAdverts);
   const isLoading = useSelector(selectIsLoading);
 
@@ -43,6 +43,10 @@ export const Filter = () => {
     const currentSearchParams = Object.fromEntries(searchParams.entries());
     currentSearchParams[category] = e.target.value;
     setSearchParams(currentSearchParams);
+  };
+
+  const onSearchBtnClick = (make, rentalPrice, minMileage, maxMileage) => {
+    onSearchClick(make, rentalPrice, minMileage, maxMileage);
   };
 
   return (
@@ -91,7 +95,12 @@ export const Filter = () => {
         </StyledInputWrap>
       </StyledFilterFieldWrap>
 
-      <StyledSearchBtn type="button">Search</StyledSearchBtn>
+      <StyledSearchBtn
+        type="button"
+        onClick={() => onSearchBtnClick(brand, price, minMileage, maxMileage)}
+      >
+        Search
+      </StyledSearchBtn>
     </StyledFilterWrap>
   );
 };

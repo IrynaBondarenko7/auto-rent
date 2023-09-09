@@ -32,6 +32,7 @@ export const AdvertsItem = ({ advert }) => {
   const checkedFavorite = useSelector(
     state => state.favorites.checkedFavorite[advert.id] || false
   );
+
   const dispatch = useDispatch();
 
   const toggleModal = () => {
@@ -46,14 +47,16 @@ export const AdvertsItem = ({ advert }) => {
     setSelectedAdvert(advert);
   };
 
-  const toggleFavoritesHandler = advertId => {
-    const isFavorite = favorites.includes(advertId);
+  const toggleFavoritesHandler = advert => {
+    const isFavorite = favorites.some(favorite => favorite.id === advert.id);
+
     const isChecked = !isFavorite;
+    const advertId = advert.id;
 
     if (isFavorite) {
-      dispatch(removeFromFavorites(advertId));
+      dispatch(removeFromFavorites(advert));
     } else {
-      dispatch(addToFavorites(advertId));
+      dispatch(addToFavorites(advert));
     }
     dispatch(setCheckedFavorite({ advertId, isChecked }));
   };
@@ -81,7 +84,7 @@ export const AdvertsItem = ({ advert }) => {
         <StyledSvgWrapper>
           <StyledFavoriteButton
             type="button"
-            onClick={() => toggleFavoritesHandler(advert.id)}
+            onClick={() => toggleFavoritesHandler(advert)}
             checked={checkedFavorite}
           >
             <Svg />

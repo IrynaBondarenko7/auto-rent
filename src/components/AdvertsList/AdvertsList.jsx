@@ -1,15 +1,31 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 
-import { selectAdverts } from 'redux/adverts/selectors';
-import { fetchAdverts, loadMoreAdverts } from 'redux/adverts/operations';
-import { StyledBtnLink, StyledList } from './AdvertsList.styled';
+import {
+  selectAdverts,
+  selectError,
+  selectIsLoading,
+} from 'redux/adverts/selectors';
+import {
+  FiltrAdverts,
+  fetchAdverts,
+  loadMoreAdverts,
+} from 'redux/adverts/operations';
+import {
+  StyledBtnLink,
+  StyledErrorText,
+  StyledList,
+} from './AdvertsList.styled';
 import { AdvertsItem } from './AdvertsItem';
+import { Filter } from 'components/Filter/Filter';
+import { Loader } from 'components/Loader/Loader';
 
 export const AdvertsList = () => {
   const [page, setPage] = useState(1);
 
   const adverts = useSelector(selectAdverts);
+  const isError = useSelector(selectError);
+  const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,8 +50,24 @@ export const AdvertsList = () => {
     setPage(page + 1);
   };
 
+  const onSearchClick = (make, rentalPrice, minMileage, maxMileage) => {
+    const params = {
+      page,
+      make,
+      rentalPrice,
+      minMileage,
+      maxMileage,
+    };
+    dispatch(FiltrAdverts(params));
+  };
+
   return (
     <>
+      {isError && (
+        <StyledErrorText>Something went wrong, try again!</StyledErrorText>
+      )}
+      {isLoading && <Loader />}
+      <Filter onSearchClick={onSearchClick} />
       <StyledList>
         {adverts.map(advert => {
           return <AdvertsItem key={advert.id} advert={advert} />;

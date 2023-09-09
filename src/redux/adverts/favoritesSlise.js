@@ -8,14 +8,11 @@ export const favoritesSlice = createSlice({
   },
   reducers: {
     addToFavorites: (state, action) => {
-      const advertId = action.payload;
-      if (!state.list.includes(advertId)) {
-        state.list.push(advertId);
-      }
+      state.list.push(action.payload);
     },
     removeFromFavorites: (state, action) => {
-      const advertId = action.payload;
-      state.list = state.list.filter(id => id !== advertId);
+      const advertId = action.payload.id;
+      state.list = state.list.filter(el => el.id !== advertId);
     },
     setCheckedFavorite: (state, action) => {
       const { advertId, isChecked } = action.payload;

@@ -49,4 +49,10 @@ export const StyledNavLink = styled(NavLink)`
   width: 200px;
   margin: 20px auto;
   text-align: center;
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  &:hover,
+  &:focus {
+    transform: scale(1.1);
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
 `;
