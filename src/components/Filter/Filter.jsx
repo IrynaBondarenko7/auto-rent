@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
-import { selectAdverts } from 'redux/adverts/selectors';
+import { useSearchParams } from 'react-router-dom';
+import { selectAdverts, selectIsLoading } from 'redux/adverts/selectors';
 import {
   StyledBrandSelect,
   StyledFilterFieldWrap,
@@ -14,6 +15,13 @@ import { StyledSearchBtn } from 'components/Buttons/Buttons.styled';
 
 export const Filter = () => {
   const adverts = useSelector(selectAdverts);
+  const isLoading = useSelector(selectIsLoading);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const brand = searchParams.get('brand');
+  const price = searchParams.get('price');
+  const minMileage = searchParams.get('minMileage');
+  const maxMileage = searchParams.get('maxMileage');
 
   let makeOptions = adverts.map(advert => ({
     value: advert.make,
@@ -25,23 +33,61 @@ export const Filter = () => {
     label: advert.rentalPrice.slice(1),
   }));
 
+  const handleOptionsParamsChange = (option, category) => {
+    const currentSearchParams = Object.fromEntries(searchParams.entries());
+    currentSearchParams[category] = option.value;
+    setSearchParams(currentSearchParams);
+  };
+
+  const handleIputsParamsChange = (e, category) => {
+    const currentSearchParams = Object.fromEntries(searchParams.entries());
+    currentSearchParams[category] = e.target.value;
+    setSearchParams(currentSearchParams);
+  };
+
   return (
     <StyledFilterWrap>
       <StyledFilterFieldWrap>
         <StyledFiltrTitle>Car brand</StyledFiltrTitle>
-        <StyledBrandSelect options={makeOptions} placeholder="Enter the text" />
+        <StyledBrandSelect
+          options={makeOptions}
+          placeholder="Enter the text"
+          isLoading={isLoading}
+          onChange={option => {
+            handleOptionsParamsChange(option, 'brand');
+          }}
+        />
       </StyledFilterFieldWrap>
 
       <StyledFilterFieldWrap>
         <StyledFiltrTitle>Price/ 1 hour</StyledFiltrTitle>
-        <StyledPriceSelect options={rentalPriceOptions} placeholder="To $" />
+        <StyledPriceSelect
+          options={rentalPriceOptions}
+          placeholder="To $"
+          isLoading={isLoading}
+          onChange={option => {
+            handleOptionsParamsChange(option, 'price');
+          }}
+        />
       </StyledFilterFieldWrap>
 
       <StyledFilterFieldWrap>
         <StyledFiltrTitle>Сar mileage / km</StyledFiltrTitle>
         <StyledInputWrap>
-          <StyledInputLeft type="text" placeholder="From" />
-          <StyledInputRight type="text" placeholder="To" />
+          <StyledInputLeft
+            type="text"
+            placeholder="From"
+            onChange={e => {
+              handleIputsParamsChange(e, 'minMileage');
+            }}
+          />
+          <StyledInputRight
+            type="text"
+            placeholder="To"
+            onChange={e => {
+              handleIputsParamsChange(e, 'maxMileage');
+            }}
+          />
         </StyledInputWrap>
       </StyledFilterFieldWrap>
 
