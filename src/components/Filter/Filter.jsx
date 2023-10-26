@@ -1,6 +1,6 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { selectAdverts, selectIsLoading } from 'redux/adverts/selectors';
+import { selectAllAdverts, selectIsLoading } from 'redux/adverts/selectors';
 import {
   StyledBrandSelect,
   StyledFilterFieldWrap,
@@ -12,16 +12,24 @@ import {
   StyledPriceSelect,
 } from './Filter.styled';
 import { StyledSearchBtn } from 'components/Buttons/Buttons.styled';
+import { useEffect } from 'react';
+import { fetchAllAdverts } from 'redux/adverts/operations';
 
 export const Filter = ({ onSearchClick }) => {
-  const adverts = useSelector(selectAdverts);
+  const adverts = useSelector(selectAllAdverts);
+
   const isLoading = useSelector(selectIsLoading);
+  const dispatch = useDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const brand = searchParams.get('brand');
   const price = searchParams.get('price');
   const minMileage = searchParams.get('minMileage');
   const maxMileage = searchParams.get('maxMileage');
+
+  useEffect(() => {
+    dispatch(fetchAllAdverts());
+  }, [dispatch]);
 
   let makeOptions = adverts.map(advert => ({
     value: advert.make,

@@ -63,7 +63,7 @@ export const AdvertsList = () => {
 
   return (
     <>
-      {isError && (
+      {isError && !isLoading && (
         <StyledErrorText>Something went wrong, try again!</StyledErrorText>
       )}
       {isLoading && <Loader />}

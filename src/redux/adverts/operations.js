@@ -56,3 +56,15 @@ export const FiltrAdverts = createAsyncThunk(
   'adverts/filtrAdverts',
   FetchFiltrAdverts
 );
+
+export const fetchAllAdverts = createAsyncThunk(
+  'adverts/fetchAllAdverts',
+  async (_, thunkAPI) => {
+    try {
+      const response = await axios.get(`/adverts`);
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);

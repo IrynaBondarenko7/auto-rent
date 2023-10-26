@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { FiltrAdverts, fetchAdverts, loadMoreAdverts } from './operations';
+import {
+  FiltrAdverts,
+  fetchAdverts,
+  fetchAllAdverts,
+  loadMoreAdverts,
+} from './operations';
 
 const pendingReducer = state => {
   state.isLoading = true;
@@ -22,6 +27,12 @@ const loadMoreAdvertsFulfilledReducer = (state, action) => {
   state.cars = state.cars.concat(action.payload);
 };
 
+const fetchAllAdvertsFulfilledReducer = (state, action) => {
+  state.isLoading = false;
+  state.error = null;
+  state.allAdvers = action.payload;
+};
+
 export const advertsSlice = createSlice({
   name: 'adverts',
   initialState: {
@@ -29,6 +40,7 @@ export const advertsSlice = createSlice({
     isLoading: false,
     error: null,
     filtr: '',
+    allAdvers: [],
   },
   extraReducers: builder => {
     builder
@@ -40,7 +52,10 @@ export const advertsSlice = createSlice({
       .addCase(loadMoreAdverts.rejected, rejectedReducer)
       .addCase(FiltrAdverts.pending, pendingReducer)
       .addCase(FiltrAdverts.fulfilled, fetchAdvertsFulfilledReducer)
-      .addCase(FiltrAdverts.rejected, rejectedReducer);
+      .addCase(FiltrAdverts.rejected, rejectedReducer)
+      .addCase(fetchAllAdverts.pending, pendingReducer)
+      .addCase(fetchAllAdverts.fulfilled, fetchAllAdvertsFulfilledReducer)
+      .addCase(fetchAllAdverts.rejected, rejectedReducer);
   },
 });
 
