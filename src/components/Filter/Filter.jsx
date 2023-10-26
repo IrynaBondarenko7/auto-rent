@@ -31,14 +31,22 @@ export const Filter = ({ onSearchClick }) => {
     dispatch(fetchAllAdverts());
   }, [dispatch]);
 
-  let makeOptions = adverts.map(advert => ({
-    value: advert.make,
-    label: advert.make,
+  //get makes without repetitions
+  const arrMakes = adverts.map(el => el.make);
+  const uniqueMakes = [...new Set(arrMakes)];
+
+  let makeOptions = uniqueMakes.map(advert => ({
+    value: advert,
+    label: advert,
   }));
 
-  let rentalPriceOptions = adverts.map(advert => ({
-    value: advert.rentalPrice.slice(1),
-    label: advert.rentalPrice.slice(1),
+  //get rentalPrices without repetitions
+  const arrPrices = adverts.map(el => el.rentalPrice);
+  const uniquePrices = [...new Set(arrPrices)];
+
+  let rentalPriceOptions = uniquePrices.map(advert => ({
+    value: advert.slice(1),
+    label: advert.slice(1),
   }));
 
   const handleOptionsParamsChange = (option, category) => {
