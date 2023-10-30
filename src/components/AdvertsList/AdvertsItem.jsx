@@ -101,7 +101,7 @@ export const AdvertsItem = ({ advert }) => {
             <StyledModelDescription>{advert.model},</StyledModelDescription>
             <StyledMakeDescription>{advert.year}</StyledMakeDescription>
           </StyledTextWrap>
-          <StyledMakeDescription>{advert.rentalPrice}</StyledMakeDescription>
+          <StyledMakeDescription>${advert.rentalPrice}</StyledMakeDescription>
         </StyledHeaderCardTextWrap>
 
         <StyledDetailsDescription>

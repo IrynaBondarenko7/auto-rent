@@ -45,8 +45,8 @@ export const Filter = ({ onSearchClick }) => {
   const uniquePrices = [...new Set(arrPrices)];
 
   let rentalPriceOptions = uniquePrices.map(advert => ({
-    value: advert.slice(1),
-    label: advert.slice(1),
+    value: advert,
+    label: advert,
   }));
 
   const handleOptionsParamsChange = (option, category) => {

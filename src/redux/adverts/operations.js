@@ -26,27 +26,39 @@ export const loadMoreAdverts = createAsyncThunk(
 );
 
 const FetchFiltrAdverts = async (params, thunkAPI) => {
-  const { page, make, rentalPrice, minMileage, maxMileage } = params;
-  const queryParams = [];
-
-  if (make) {
-    queryParams.push(`make=${make}`);
-  }
-
-  if (rentalPrice) {
-    queryParams.push(`rentalPrice=${rentalPrice}`);
-  }
-
-  if (minMileage || maxMileage) {
-    queryParams.push(`mileage=${minMileage || maxMileage}`);
-  }
+  const { make, rentalPrice, minMileage, maxMileage } = params;
 
   try {
-    const queryString = queryParams.join('&');
-    const response = await axios.get(
-      `/adverts?&page=${page}&limit=8&${queryString}`
-    );
-    return response.data;
+    let filtredArray = [];
+
+    const response = await axios.get(`/adverts`);
+    const data = response.data;
+
+    filtredArray = data;
+
+    if (make) {
+      filtredArray = data.filter(el => el.make === make);
+    }
+
+    if (rentalPrice) {
+      filtredArray = filtredArray.filter(
+        el => el.rentalPrice === Number(rentalPrice)
+      );
+    }
+
+    if (minMileage) {
+      filtredArray = filtredArray.filter(
+        el => el.mileage >= Number(minMileage)
+      );
+    }
+
+    if (maxMileage) {
+      filtredArray = filtredArray.filter(
+        el => el.mileage <= Number(maxMileage)
+      );
+    }
+
+    return filtredArray;
   } catch (e) {
     return thunkAPI.rejectWithValue(e.message);
   }
