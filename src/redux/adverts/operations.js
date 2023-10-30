@@ -37,7 +37,7 @@ const FetchFiltrAdverts = async (params, thunkAPI) => {
     filtredArray = data;
 
     if (make) {
-      filtredArray = data.filter(el => el.make === make);
+      filtredArray = data.filter(elem => elem.make === make);
     }
 
     if (rentalPrice) {
